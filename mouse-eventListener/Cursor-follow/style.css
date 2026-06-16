@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body{
+    width: 100%;
+    height: 100%;
+    background-color: #555;
+}
+#main{
+    width: 100%;
+    height: 100%;
+}
+#container{
+    width: 200px;
+    height: 200px;
+    transition: cubic-bezier(0.19, 1, 0.22, 1) .4s;
+    background-color: red;
+    position: absolute;
+}
