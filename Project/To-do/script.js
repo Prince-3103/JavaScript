@@ -18,12 +18,16 @@ inputGroup.addEventListener("submit", function(evt){
 
     let btn = document.createElement("div");
     btn.classList.add("btn");
+    let doneBtn = document.createElement("button");
+    doneBtn.classList.add("done-btn");
+    doneBtn.innerHTML = '<i class="ri-check-fill"></i>';
     let editBtn = document.createElement("button");
     editBtn.classList.add("edit-btn");
     editBtn.innerHTML = '<i class="ri-edit-2-line"></i>';
     let deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
     deleteBtn.innerHTML = '<i class="ri-delete-bin-line"></i>';
+    btn.appendChild(doneBtn);
     btn.appendChild(editBtn);
     btn.appendChild(deleteBtn);
 
