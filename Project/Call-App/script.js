@@ -89,3 +89,76 @@ form.addEventListener("submit", function(evt){
     form.reset();
     formContainer.style.display = "none";
 });
+
+function showCards(){
+    let allTasks = JSON.parse(localStorage.getItem("tasks"));
+    
+    allTasks.forEach(function(task){
+        // Create note-card
+        const card = document.createElement("div");
+        card.classList.add("note-card");
+
+        // Now for profile img
+        const profileImg = document.createElement("img");
+        profileImg.src = task.imageUrl;
+        // Append profile img in note-card
+        card.appendChild(profileImg);
+
+        //Now Card Content
+        const cardContent = document.createElement("div");
+        cardContent.classList.add("card-content");
+
+        // Now name
+        const name = document.createElement("h3")
+        name.textContent = task.fullName;
+        cardContent.appendChild(name);
+
+        // Info of address class
+        const infoAddress = document.createElement("div");
+        infoAddress.classList.add("info");
+
+        const homeTownLabel = document.createElement("span");
+        homeTownLabel.textContent = "Home town"
+
+        const homeTownValue = document.createElement("span");
+        homeTownValue.textContent = task.homeTown;
+
+        infoAddress.appendChild(homeTownLabel);
+        infoAddress.appendChild(homeTownValue);
+        cardContent.appendChild(infoAddress);
+
+        // Now add info booking
+        const infoBooking = document.createElement("div")
+        infoBooking.classList.add("info")
+
+        const infoBookingLabel = document.createElement("span");
+        infoBookingLabel.textContent = "Purpose"
+
+        const infoBookingValue = document.createElement("span");
+        infoBookingValue.textContent = task.purpose;
+
+        infoBooking.appendChild(infoBookingLabel);
+        infoBooking.appendChild(infoBookingValue);
+        cardContent.appendChild(infoBooking);
+
+        // Making Call and message action button
+        const buttonDiv = document.createElement("div");
+        buttonDiv.classList.add("actions");
+
+        const callBtn = document.createElement("button");
+        callBtn.classList.add("call");
+        callBtn.innerHTML = '<i class="ri-phone-fill"></i> Call';
+
+        const msgBtn = document.createElement("button");
+        msgBtn.textContent = "Message"; 
+
+        buttonDiv.appendChild(callBtn);
+        buttonDiv.appendChild(msgBtn);
+        cardContent.appendChild(buttonDiv);
+
+        // Now append card-content in note-card
+        card.appendChild(cardContent);
+        document.querySelector(".stack").appendChild(card)
+    });
+}
+showCards();
