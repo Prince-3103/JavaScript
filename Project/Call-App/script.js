@@ -7,6 +7,10 @@ let add = document.querySelector("#add-btn");
 let formContainer = document.querySelector(".form-container");
 let closeForm = document.querySelector("#close-form");
 
+const stack = document.querySelector(".stack");
+const upBtn = document.querySelector("#up-btn");
+const downBtn = document.querySelector("#down-btn");
+
 const form = document.querySelector("form")
 const imageInput = document.querySelector("#image-url");
 const fullNameInput = document.querySelector("#full-name");
@@ -88,6 +92,7 @@ form.addEventListener("submit", function(evt){
     });
     form.reset();
     formContainer.style.display = "none";
+    showCards();
 });
 
 function showCards(){
@@ -162,3 +167,28 @@ function showCards(){
     });
 }
 showCards();
+
+function updateStack(){
+    const cards = document.querySelectorAll(".stack .card");
+
+    cards.forEach(function(card, index){
+        card.style.zIndex = 3 - index;
+        card.style.transform = `translate(${index * 10}px) scale(${1 - index * 0.2})`;
+        card.style.opacity = `${1 - index * 0.2}`;
+    });
+}
+
+upBtn.addEventListener("click", function(){
+    let lastElement = stack.lastElementChild;
+    if(lastElement){
+        stack.insertBefore(lastElement, stack.firstElementChild);
+        updateStack();
+    }
+});
+downBtn.addEventListener("click", function(){
+    const firstElement = stack.firstElementChild;
+    if(firstElement){
+        stack.appendChild(firstElement);
+        updateStack();
+    }
+});
