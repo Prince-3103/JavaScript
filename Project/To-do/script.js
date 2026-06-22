@@ -41,6 +41,7 @@ inputGroup.addEventListener("submit", function(evt){
 todoList.addEventListener("click",function(evt){
     const deleteBtn = evt.target.closest(".delete-btn");
     const doneBtn = evt.target.closest(".done-btn");
+    const editBtn = evt.target.closest(".edit-btn");
     if(deleteBtn){
         let listContent = deleteBtn.closest("li");
         listContent.remove();
@@ -51,4 +52,22 @@ todoList.addEventListener("click",function(evt){
         listContent.firstElementChild.classList.toggle("completed")
     }
 
+    if(editBtn){
+        let listContent = editBtn.closest("li");
+        let user = true;
+        while(user){
+            let inp = prompt(`Current Task: ${listContent.firstElementChild.textContent}\nEdit task: `);
+            if(inp === null){
+                user = false;
+            }
+            else if(!inp.trim()){
+                alert("Please Enter Valid Task");
+            }
+            else{
+                listContent.firstElementChild.textContent = inp.trim();
+                user = false;
+            }
+        }
+        
+    }
 })
