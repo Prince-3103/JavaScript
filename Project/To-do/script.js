@@ -40,9 +40,15 @@ inputGroup.addEventListener("submit", function(evt){
 
 todoList.addEventListener("click",function(evt){
     const deleteBtn = evt.target.closest(".delete-btn");
-
+    const doneBtn = evt.target.closest(".done-btn");
     if(deleteBtn){
         let listContent = deleteBtn.closest("li");
         listContent.remove();
     }
+
+    if(doneBtn){
+        let listContent = doneBtn.closest("li");
+        listContent.firstElementChild.classList.toggle("completed")
+    }
+
 })
