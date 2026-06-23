@@ -3,17 +3,32 @@ let todoInp = document.querySelector("#todo-input");
 const addBtn = document.querySelector("#add-btn");
 let todoList = document.querySelector("#todo-list");
 
+function saveToLocalStorage(newTask){
+    if(localStorage.getItem("work") === null){
+        let tasks = [];
+        tasks.push(newTask);
+        localStorage.setItem("work", JSON.stringify(tasks))
+    }
+    else{
+        let tasks = JSON.parse(localStorage.getItem("work"));
+        tasks.push(newTask);
+        localStorage.setItem("work", JSON.stringify(tasks));
+    }
+}
+
 inputGroup.addEventListener("submit", function(evt){
     evt.preventDefault()
     
-    if(!todoInp.value.trim()){
+    let inpTask = todoInp.value.trim();
+
+    if(!inpTask){
         alert("Please Enter Valid Input");
         return;
     }
     let list = document.createElement("li");
 
     let task = document.createElement("span");
-    task.textContent = todoInp.value.trim();
+    task.textContent = inpTask;
     list.appendChild(task);
 
     let btn = document.createElement("div");
@@ -36,6 +51,9 @@ inputGroup.addEventListener("submit", function(evt){
     todoList.appendChild(list);
     todoInp.value = "";
     todoInp.focus();
+    saveToLocalStorage({
+        inpTask
+    })
 });
 
 todoList.addEventListener("click",function(evt){
@@ -47,9 +65,12 @@ todoList.addEventListener("click",function(evt){
         listContent.remove();
     }
 
+    let isCompleted = false;
+
     if(doneBtn){
         let listContent = doneBtn.closest("li");
-        listContent.firstElementChild.classList.toggle("completed")
+        listContent.firstElementChild.classList.toggle("completed");
+        isCompleted = true;
     }
 
     if(editBtn){
