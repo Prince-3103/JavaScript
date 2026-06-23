@@ -16,15 +16,8 @@ function saveToLocalStorage(newTask){
     }
 }
 
-inputGroup.addEventListener("submit", function(evt){
-    evt.preventDefault()
+function createTask(inpTask){
     
-    let inpTask = todoInp.value.trim();
-
-    if(!inpTask){
-        alert("Please Enter Valid Input");
-        return;
-    }
     let list = document.createElement("li");
 
     let task = document.createElement("span");
@@ -49,19 +42,44 @@ inputGroup.addEventListener("submit", function(evt){
     list.appendChild(btn);
 
     todoList.appendChild(list);
+    
     todoInp.value = "";
     todoInp.focus();
+}
+
+if(localStorage.getItem("work") !== null){
+    console.log(localStorage.getItem("work"));
+    let allTask = JSON.parse(localStorage.getItem("work"));
+    allTask.forEach(function(saveTask){
+        createTask(saveTask.inpTask);
+    })
+}
+
+inputGroup.addEventListener("submit", function(event){
+    event.preventDefault();
+    let inpTask = todoInp.value.trim();
+
+    if(!inpTask){
+        alert("Please Enter Valid Input");
+        return;
+    }
+    createTask(inpTask);
     saveToLocalStorage({
         inpTask
-    })
+    });
 });
 
-todoList.addEventListener("click",function(evt){
+todoList.addEventListener("click", function(evt){
     const deleteBtn = evt.target.closest(".delete-btn");
     const doneBtn = evt.target.closest(".done-btn");
     const editBtn = evt.target.closest(".edit-btn");
+    let allTask = JSON.parse(localStorage.getItem("work"));
     if(deleteBtn){
         let listContent = deleteBtn.closest("li");
+        let newTask = allTask.filter(function(event){
+            return listContent.firstElementChild.textContent !== event.inpTask 
+        })
+        localStorage.setItem("work", JSON.stringify(newTask));
         listContent.remove();
     }
 
@@ -91,4 +109,5 @@ todoList.addEventListener("click",function(evt){
         }
         
     }
-})
+});
+
