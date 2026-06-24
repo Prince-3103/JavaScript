@@ -16,13 +16,16 @@ function saveToLocalStorage(newTask){
     }
 }
 
-function createTask(inpTask){
+function createTask(inpTask, isCompleted){
     
     let list = document.createElement("li");
 
     let task = document.createElement("span");
     task.textContent = inpTask;
     list.appendChild(task);
+    if(isCompleted){
+        task.classList.toggle("completed");
+    }
 
     let btn = document.createElement("div");
     btn.classList.add("btn");
@@ -51,21 +54,22 @@ if(localStorage.getItem("work") !== null){
     console.log(localStorage.getItem("work"));
     let allTask = JSON.parse(localStorage.getItem("work"));
     allTask.forEach(function(saveTask){
-        createTask(saveTask.inpTask);
+        createTask(saveTask.inpTask, saveTask.isCompleted);
     })
 }
 
 inputGroup.addEventListener("submit", function(event){
     event.preventDefault();
     let inpTask = todoInp.value.trim();
-
+    let isCompleted = false
     if(!inpTask){
         alert("Please Enter Valid Input");
         return;
     }
-    createTask(inpTask);
+    createTask(inpTask, isCompleted);
     saveToLocalStorage({
-        inpTask
+        inpTask,
+        isCompleted
     });
 });
 
@@ -83,19 +87,28 @@ todoList.addEventListener("click", function(evt){
         listContent.remove();
     }
 
-    let isCompleted = false;
-
     if(doneBtn){
         let listContent = doneBtn.closest("li");
+        let doneTask = listContent.firstElementChild.textContent;
         listContent.firstElementChild.classList.toggle("completed");
-        isCompleted = true;
+
+        allTask.forEach(function(task){
+            if(task.inpTask === doneTask){
+                if(task.isCompleted){
+                    task.isCompleted = false;
+                }
+                else{
+                    task.isCompleted = true;
+                }
+            }
+        });
+        
+        localStorage.setItem("work", JSON.stringify(allTask));
     }
 
     if(editBtn){
-        let allTask = JSON.parse(localStorage.getItem("work"));
         let listContent = editBtn.closest("li");
         let oldTask = listContent.firstElementChild.textContent;
-        console.log(oldTask)
         let user = true;
         while(user){
             let inp = prompt(`Current Task: ${listContent.firstElementChild.textContent}\nEdit task: `);
