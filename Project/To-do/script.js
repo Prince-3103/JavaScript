@@ -92,7 +92,10 @@ todoList.addEventListener("click", function(evt){
     }
 
     if(editBtn){
+        let allTask = JSON.parse(localStorage.getItem("work"));
         let listContent = editBtn.closest("li");
+        let oldTask = listContent.firstElementChild.textContent;
+        console.log(oldTask)
         let user = true;
         while(user){
             let inp = prompt(`Current Task: ${listContent.firstElementChild.textContent}\nEdit task: `);
@@ -103,11 +106,18 @@ todoList.addEventListener("click", function(evt){
                 alert("Please Enter Valid Task");
             }
             else{
-                listContent.firstElementChild.textContent = inp.trim();
+                let newTask = inp.trim();
+                listContent.firstElementChild.textContent = newTask;
+                allTask.forEach(function(task){
+                    if(task.inpTask === oldTask){
+                        task.inpTask = newTask;
+                    }
+                });
                 user = false;
+            localStorage.setItem("work", JSON.stringify(allTask));
+
             }
         }
-        
     }
 });
 
