@@ -1,5 +1,5 @@
 let form = document.querySelector("form");
-let name = document.querySelector("#name");
+let userName = document.querySelector("#name");
 let role = document.querySelector("#role");
 let bio = document.querySelector("#bio");
 let pic = document.querySelector("#photo");
@@ -19,7 +19,7 @@ const userManager = {
 
     addUser: function(){
         this.users.push({
-            name: name.value,
+            userName: userName.value,
             role: role.value,
             bio: bio.value,
             pic: pic.value
@@ -30,7 +30,7 @@ const userManager = {
     renderUi: function(){
         document.querySelector(".users").textContent = "";
         
-        this.users.forEach(function(user){
+        this.users.forEach((user, index)=>{
             const card = document.createElement("div");
             card.className = "bg-white/90 backdrop-blur rounded-2xl shadow-xl p-8 flex flex-col items-center border border-blue-100 hover:scale-105 transition";
 
@@ -42,7 +42,7 @@ const userManager = {
 
             let name = document.createElement("h2");
             name.className = "text-2xl font-bold mb-1 text-blue-700";
-            name.textContent = user.name;
+            name.textContent = user.userName;
             card.appendChild(name);
 
             let role = document.createElement("p");
@@ -55,11 +55,24 @@ const userManager = {
             about.textContent = user.bio;
             card.appendChild(about);
 
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "❌";
+            deleteBtn.className = "absolute top-3 right-3 text-red-500 hover:text-red-700 text-xl";
+
+            deleteBtn.addEventListener("click", ()=>{
+                this.removeUser(index);
+            })
+
+            card.appendChild(deleteBtn);
+
             document.querySelector(".users").appendChild(card);
         })
         
     },
-    removeUser: function(){}
+    removeUser: function(index){
+        this.users.splice(index, 1);
+        this.renderUi();
+    }
 };
 
 userManager.init()
