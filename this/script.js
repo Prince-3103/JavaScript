@@ -68,6 +68,7 @@ const userManager = {
             document.querySelector(".users").appendChild(card);
         })
         
+        
     },
     removeUser: function(index){
         this.users.splice(index, 1);
