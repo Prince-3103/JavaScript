@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy Loading</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+            height: 100%;
+            width: 100%;
+        }
+        body{
+            height: 100%;
+            background-color: rgb(0, 0, 0);
+            color: white;
+        }
+        .main-page{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20%;
+        }
+        .main-page h1{
+            font-size: 70px;
+        }
+        .main-page h4{
+            font-size: 40px;
+        }
+
+        .space{
+            height: 100%;
+            width: 100%;
+            background-color: blanchedalmond;
+        }
+        .image{
+            height: 100%;
+            width: 100%;
+            padding: 50px;
+        }
+        .image img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-page">
+        <h1>Lazy Loading Images with<br>IntersectionObserver</h1>
+        <h4>Scroll down to see image load only when they are on viewport.</h4>
+    </div>
+    <div class="space"></div>
+    <div class="image">
+        <img src="https://i.pinimg.com/736x/3d/4c/c2/3d4cc2fc47be4e9c27cee0fcabf18c04.jpg" alt="">
+    </div>
+    <div class="space"></div>
+    <div class="image">
+        <img src="https://i.pinimg.com/1200x/d2/fc/3d/d2fc3d204329008603071a73dfcb1fc7.jpg" alt="">
+    </div>
+    <div class="space"></div>
+    <div class="image">
+        <img src="https://i.pinimg.com/736x/0f/78/0c/0f780cd43bf1bdcf3253a8b0df46752a.jpg" alt="">
+    </div>
+    <div class="space"></div>
+    <div class="image">
+        <img src="https://i.pinimg.com/736x/49/18/6b/49186ba527b1eaed2bd32b5f9e4c058d.jpg" alt="">
+    </div>
+</body>
+</html>
