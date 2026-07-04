@@ -23,10 +23,10 @@ function throttle(func, delay){
     };
 }
 
-inp.addEventListener("input", debounce(function(){
-    console.log("debounce")
+inp.addEventListener("input", debounce(function(e){
+    console.log(e.target.value +" debounce");
 }, 1000))
 
-inp.addEventListener("input", throttle(function(){
-    console.log("throttle")
+inp.addEventListener("input", throttle(function(e){
+    console.log(e.target.value +" throttle");
 }, 1000))
